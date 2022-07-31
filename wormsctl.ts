@@ -12,6 +12,14 @@ const flags = parse(Deno.args);
 
 flags._ = flags._[0];
 
+function handleOut(res: any) { // Too lazy to assign an actual interface/type to this
+  if (!res.err) {
+    console.log(res[0]);
+  } else {
+    console.log(`ERROR: ${res.msg}`);
+  }
+}
+
 if (flags.showArgs) {
   console.log(flags);
 }
@@ -50,17 +58,29 @@ switch (flags._) {
         console.log(`ERROR: 'user' flag must be present!`);
       }
       const res = await basicSelect("roles", "users", flags.user);
-      if (!res.err) {
-        console.log(res[0]);
-      } else {
-        console.log(`ERROR: ${res.msg}`);
+      handleOut(res);
+    }
+    if (flags.json) {
+      if (flags.torrent) {
+        const res = await basicSelect("json", "torrents", flags.torrent);
+        handleOut(res);
+      }
+      if (flags.list) {
+        const res = await basicSelect("json", "lists", flags.list);
+        handleOut(res);
+      }
+      if (flags.comment) {
+        const res = await basicSelect("json", "comments", flags.comment);
+        handleOut(res);
       }
     }
     break;
   }
   case (undefined):
   case ("help"): {
-    console.log("RTFM");
+    console.log(
+      `usage: wormsctl (show,set,remove) --json --role --user ---list --torrent --comment`,
+    );
     break;
   }
   default: {

@@ -48,9 +48,18 @@ export async function basicDelete(
   name: string,
 ) {
   await client.connect();
-  const res = await client.queryArray(
+  await client.queryArray(
     `DELETE FROM ${table} WHERE id = $1`,
     [name],
   );
+  if (table === "users") {
+    const defaultTables = ["comments", "torrents", "lists", "actions"];
+    for await (const defaultTable of defaultTables) {
+      await client.queryArray(
+        `DELETE FROM ${defaultTable} WHERE uploader = $1`,
+        [id],
+      );
+    }
+  }
   await client.end();
 }
