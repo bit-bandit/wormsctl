@@ -8,15 +8,15 @@ const db_settings = instanceSettings.database.settings;
 const client = new Client(db_settings);
 
 export async function basicSelect(
-    row: string,
-    table: string,
-    name: string
+  row: string,
+  table: string,
+  name: string,
 ) {
   await client.connect();
-    const res = await client.queryArray(
-	`SELECT ${row} FROM ${table} WHERE id = $1`,
-	[name]
-    );
+  const res = await client.queryArray(
+    `SELECT ${row} FROM ${table} WHERE id = $1`,
+    [name],
+  );
   await client.end();
 
   if (res.rows.length !== 0) {
@@ -44,13 +44,13 @@ export async function basicUpdate(
 }
 
 export async function basicDelete(
-    table: string,
-    name: string
+  table: string,
+  name: string,
 ) {
   await client.connect();
-    const res = await client.queryArray(
-	`DELETE FROM ${table} WHERE id = $1`,
-	[name]
-    );
-    await client.end();
+  const res = await client.queryArray(
+    `DELETE FROM ${table} WHERE id = $1`,
+    [name],
+  );
+  await client.end();
 }
