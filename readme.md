@@ -1,5 +1,10 @@
 # `wormsctl` - Command line interface for Parasite instances
 
+## Installation
+```
+deno install --allow-net --allow-read --allow-write --allow-env https://raw.githubusercontent.com/bit-bandit/wormsctl/main/wormsctl.ts
+```
+
 ## Examples:
 ```sh
 # Set role of user 'Bob' to 'Admin'
