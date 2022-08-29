@@ -1,9 +1,7 @@
 import { Client } from "https://deno.land/x/postgres@v0.16.1/mod.ts";
 
-// File to share between wormscli and your parasite instance.
-// We recommend you do this locally.
+// Settings file to share between wormscli and your parasite instance.
 import { settings as instanceSettings } from "../parasite/settings.ts";
-
 const db_settings = instanceSettings.database.settings;
 const client = new Client(db_settings);
 
