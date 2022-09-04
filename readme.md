@@ -1,10 +1,13 @@
 # `wormsctl` - Command line interface for Parasite instances
 
 ## Installation
+```sh
+# In the parent directory of your Parasite installation
+git clone https://github.com/bit-bandit/wormsctl
+cd wormsctl
+```
 
-```
-deno install --allow-net --allow-read --allow-write --allow-env https://raw.githubusercontent.com/bit-bandit/wormsctl/main/wormsctl.ts
-```
+We are aware this is counterintuitive.
 
 ## Examples:
 
@@ -21,8 +24,6 @@ wormsctl remove --list='78a3beb44f'
 # Show user role
 wormsctl show --role --user='bob'
 ```
-
-More examples are yet to come.
 
 ## License
 
