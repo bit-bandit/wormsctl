@@ -28,11 +28,10 @@ async function exec(args: string[]) {
     table += "s";
   }
 
-    if (args[3] === 'role') {
-	col += "s";
-    }
+  if (args[3] === "role") {
+    col += "s";
+  }
 
-    console.log(args);
   // Fallback for user table
   if (args[1] === "user" && args[3] === undefined) {
     col = "info";
@@ -72,7 +71,6 @@ if (!Deno.args.length) {
   console.log("wormsctl shell");
   console.log("Send an empty statement to exit.");
   console.log("Type 'help' for a list of commands.");
-  console.log("");
 
   while (true) {
     let commands = prompt(">");
