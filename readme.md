@@ -1,6 +1,7 @@
 # `wormsctl` - Command line interface for Parasite instances
 
 ## Installation
+
 ```sh
 # In the parent directory of your Parasite installation
 git clone https://github.com/bit-bandit/wormsctl
