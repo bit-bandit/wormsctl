@@ -12,18 +12,21 @@ We are aware this is counterintuitive.
 
 ## Examples:
 
-```sh
-# Set role of user 'Bob' to 'Admin'
-wormsctl set --user='bob' --role='Admin'
+```
+# Get Torrent JSON
+./wormsctl.ts get torrent 2e1a06ddf3
 
-# Delete torrent
-wormsctl remove --torrent='2e1a06ddf3'
+# Get list likes
+./wormsctl.ts get list 78a3beb44f likes
 
-# Delete list
-wormsctl remove --list='78a3beb44f'
+# Get user role
+./wormsctl.ts get user bob role
 
-# Show user role
-wormsctl show --role --user='bob'
+# Set Bob's role to Admin
+./wormsctl.ts set user bob role Admin
+
+# Delete a comment
+./wormsctl.ts delete comment 37b567dfa3
 ```
 
 ## License
