@@ -118,3 +118,23 @@ export async function basicShell() {
     }
   }
 }
+
+export async function getTables() {
+  let res = {};
+
+  let tables = await client.queryObject(
+    "SELECT table_name FROM information_schema.tables WHERE table_schema='public'",
+  );
+
+  for (let t in tables.rows) {
+    res[tables.rows[t].table_name] = [];
+  }
+
+  for (let c in res) {
+    let x = await client.queryObject(
+      `SELECT column_name FROM information_schema.columns WHERE table_name = '${c}'`,
+    );
+    x.rows.map((y) => res[c].push(y.column_name));
+  }
+  return res;
+}

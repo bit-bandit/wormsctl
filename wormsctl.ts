@@ -5,7 +5,12 @@
 import instances from "../parasite/federation.json" assert { type: "json" };
 import { roles } from "../parasite/roles.ts";
 
-import { basicDelete, basicSelect, basicUpdate } from "./database_utils.ts";
+import {
+  basicDelete,
+  basicSelect,
+  basicUpdate,
+  getTables,
+} from "./database_utils.ts";
 
 const usage = () =>
   console.log(
@@ -17,24 +22,29 @@ const usage = () =>
   );
 
 async function exec(args: string[]) {
-  // Overused variables
   let col = args[3] ?? "json";
-  let table = args[1];
-
-  if (
-    args[1] === "torrent" || args[1] === "list" || args[1] === "user" ||
-    args[1] === "comments"
-  ) {
-    table += "s";
-  }
-
-  if (args[3] === "role") {
-    col += "s";
-  }
-
-  // Fallback for user table
+  // Fallback for default user table
   if (args[1] === "user" && args[3] === undefined) {
     col = "info";
+  }
+
+  let table = args[1];
+  const db_tables = await getTables();
+
+  if (db_tables[`${args[1]}s`]) {
+    table += "s";
+  } else {
+    console.error("No matching table found");
+    return;
+  }
+
+  if (args[3] !== undefined && db_tables[table].includes(`${col}s`)) {
+    col += "s";
+  } else if (db_tables[table].includes(col)) {
+    // Do nothing
+  } else {
+    console.error("No matching column found");
+    return;
   }
 
   switch (args[0]) {
@@ -71,7 +81,6 @@ if (!Deno.args.length) {
   console.log("wormsctl shell");
   console.log("Send an empty statement to exit.");
   console.log("Type 'help' for a list of commands.");
-
   while (true) {
     let commands = prompt(">");
 
@@ -83,7 +92,7 @@ if (!Deno.args.length) {
     await exec(commands);
   }
 } else {
-  if (Deno.args.includes) {
+  if (Deno.args.includes("help")) {
     usage();
   }
   await exec(Deno.args);
