@@ -155,15 +155,6 @@ async function execute(statement) {
 
       break;
     }
-    case "shell": {
-      if (args.length) {
-        return handleOut(await dbutils.basicExec(args.join(" ")));
-      } else {
-        await dbutils.basicShell();
-      }
-
-      break;
-    }
     case "help": {
       printCommands();
       break;
