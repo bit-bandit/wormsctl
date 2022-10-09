@@ -7,25 +7,34 @@ import { roles } from "../parasite/roles.ts";
 
 import * as dbutils from "./database_utils.ts";
 
+function printBlock(...strings) {
+  strings.forEach(str => console.log(str));
+}
+
 function printCommands() {
-  console.log("Commands:");
-  console.log("  get table id [column]");
-  console.log("  get table.id[.column]:");
-  console.log("    Returns data for a row by id in a table.");
-  console.log("    If a column is given, returns that column.");
-  console.log("  set table id column to value");
-  console.log("  set table.id.column to value:");
-  console.log("    Sets a column of a row by id in a table, to value.");
-  console.log("  delete table id");
-  console.log("  delete table.id:");
-  console.log("    Deletes a row by id into table.");
-  console.log("    This also deletes user data if a user is deleted.");
+  printBlock(
+    "Commands:",
+    "  get table id [column]",
+    "  get table.id[.column]:",
+    "    Returns data for a row by id in a table.",
+    "    If a column is given, returns that column.",
+    "  set table id column to value",
+    "  set table.id.column to value:",
+    "    Sets a column of a row by id in a table, to value.",
+    "  delete table id",
+    "  delete table.id:",
+    "    Deletes a row by id into table.",
+    "    This also deletes user data if a user is deleted.",
+  );
 }
 
 function printUsage() {
-  console.log("Usage: wormsctl [command args...]");
-  console.log("Open wormsctl without arguments for a shell.");
-  console.log("");
+  printBlock(
+    "Usage: wormsctl [command args...]",
+    "Open wormsctl without arguments for a shell.",
+    ""
+  );
+
   printCommands();
 }
 
@@ -181,10 +190,12 @@ if (Deno.args.length) {
     await execute(Deno.args.join(" "));
   }
 } else {
-  console.log("wormsctl shell");
-  console.log("Send an empty statement to exit.");
-  console.log("Type 'help' for a list of commands.");
-  console.log("");
+  printBlock(
+    "wormsctl shell",
+    "Send an empty statement to exit.",
+    "Type 'help' for a list of commands.",
+    ""
+  );
 
   while (true) {
     const commands = prompt(">");
