@@ -1,4 +1,4 @@
-import { Client } from "https://deno.land/x/postgres@v0.16.1/mod.ts";
+import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 
 // Settings file to share between wormscli and your parasite instance.
 import { settings as instanceSettings } from "../parasite/settings.ts";
